@@ -9,6 +9,16 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+const (
+	ColorNormal = "#4E4E4E"
+	ColorActive = "#FFAF00"
+)
+
+var (
+	LipglossColorNormal = lipgloss.Color(ColorNormal)
+	LipglossColorActive = lipgloss.Color(ColorActive)
+)
+
 type TodoStatus int
 
 const (
@@ -102,16 +112,16 @@ func (me *Model) renderTodoPane() string {
 		Width(me.paneWidth).
 		Height(me.paneHeight).
 		Border(lipgloss.RoundedBorder()).
-		BorderForeground(lipgloss.Color("#3A3A3A"))
+		BorderForeground(LipglossColorNormal)
 	titleStyle := lipgloss.NewStyle().
 		Width(me.paneWidth).
 		Bold(true).
-		Foreground(lipgloss.Color("#FFAF00")).
+		Foreground(LipglossColorNormal).
 		Border(lipgloss.NormalBorder(), false, false, true, false).
-		BorderForeground(lipgloss.Color("#3A3A3A"))
+		BorderForeground(LipglossColorNormal)
 	if me.focusedPane == Pane_Todo {
-		style = style.BorderForeground(lipgloss.Color("#CC241D"))
-		titleStyle = titleStyle.Foreground(lipgloss.Color("#CC241D")).BorderForeground(lipgloss.Color("#CC241D"))
+		style = style.Foreground(LipglossColorActive).BorderForeground(LipglossColorActive)
+		titleStyle = titleStyle.Foreground(LipglossColorActive).BorderForeground(LipglossColorActive)
 	}
 	return style.Render(titleStyle.Render("TODO"))
 }
@@ -121,35 +131,35 @@ func (me *Model) renderInProgresPane() string {
 		Width(me.paneWidth).
 		Height(me.paneHeight).
 		Border(lipgloss.RoundedBorder()).
-		BorderForeground(lipgloss.Color("#3A3A3A"))
+		BorderForeground(LipglossColorNormal)
 	titleStyle := lipgloss.NewStyle().
 		Width(me.paneWidth).
 		Bold(true).
-		Foreground(lipgloss.Color("#FFAF00")).
+		Foreground(LipglossColorNormal).
 		Border(lipgloss.NormalBorder(), false, false, true, false).
-		BorderForeground(lipgloss.Color("#3A3A3A"))
+		BorderForeground(LipglossColorNormal)
 	if me.focusedPane == Pane_InProgress {
-		paneStyle = paneStyle.BorderForeground(lipgloss.Color("#CC241D"))
-		titleStyle = titleStyle.Foreground(lipgloss.Color("#CC241D")).BorderForeground(lipgloss.Color("#CC241D"))
+		paneStyle = paneStyle.Foreground(LipglossColorActive).BorderForeground(LipglossColorActive)
+		titleStyle = titleStyle.Foreground(LipglossColorActive).BorderForeground(LipglossColorActive)
 	}
 	return paneStyle.Render(titleStyle.Render("IN PROGRESS"))
 }
 
 func (me *Model) renderDonePane() string {
 	style := lipgloss.NewStyle().
-		Width(me.paneWidth).
+		Width(me.width - me.paneWidth*2 - 6). // make last pane fill the remaining width
 		Height(me.paneHeight).
 		Border(lipgloss.RoundedBorder()).
-		BorderForeground(lipgloss.Color("#3A3A3A"))
+		BorderForeground(LipglossColorNormal)
 	titleStyle := lipgloss.NewStyle().
-		Width(me.paneWidth).
+		Width(me.width-me.paneWidth*2-6). // make last pane fill the remaining width
 		Bold(true).
-		Foreground(lipgloss.Color("#FFAF00")).
+		Foreground(LipglossColorNormal).
 		Border(lipgloss.NormalBorder(), false, false, true, false).
-		BorderForeground(lipgloss.Color("#3A3A3A"))
+		BorderForeground(LipglossColorNormal)
 	if me.focusedPane == Pane_Done {
-		style = style.BorderForeground(lipgloss.Color("#CC241D"))
-		titleStyle = titleStyle.Foreground(lipgloss.Color("#CC241D")).BorderForeground(lipgloss.Color("#CC241D"))
+		style = style.Foreground(LipglossColorActive).BorderForeground(LipglossColorActive)
+		titleStyle = titleStyle.Foreground(LipglossColorActive).BorderForeground(LipglossColorActive)
 	}
 	return style.Render(titleStyle.Render("DONE"))
 }
