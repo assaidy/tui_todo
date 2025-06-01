@@ -30,6 +30,10 @@ func NewTodo(title string) Todo {
 	}
 }
 
+func (me Todo) Title() string       { return me.title }
+func (me Todo) Description() string { return me.createdAt.Format("2006-01-02 15:04") }
+func (me Todo) FilterValue() string { return me.title }
+
 func main() {
 	if _, err := tea.NewProgram(newModel(), tea.WithAltScreen()).Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "error running tea program: %+v", err)
